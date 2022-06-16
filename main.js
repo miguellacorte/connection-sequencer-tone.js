@@ -5,7 +5,11 @@
 // let notes = [];
 
 function setup() {
-  createCanvas(windowWidth, windowHeight);
+  let c = createCanvas(windowWidth, windowHeight);
+
+  removeBtn = createButton("Save sequencer image");
+  removeBtn.position(120, 8)
+  removeBtn.mousePressed(saveToFile);
 }
 
 document.querySelector('button')?.addEventListener('click', async () => {
@@ -13,6 +17,12 @@ document.querySelector('button')?.addEventListener('click', async () => {
   console.log('audio is ready')
 })
 
+
+
+function saveToFile() {
+  // Save the current canvas to file as png
+  saveCanvas('mycanvas', 'png')
+}
 
 let mouseCount = 0;
 
@@ -31,7 +41,10 @@ let revWet = 0.3
  let reverb = new Tone.Reverb([1]).toDestination();
  reverb.wet.rampTo(revWet, 3);
 
- let chorus = new Tone.Chorus(20, 220, 1).toDestination();
+ chorusDelayTime = 880 
+ let chorus = new Tone.Chorus(20, chorusDelayTime, 1).toDestination();
+
+ console.log(chorus)
 //  chorus.wet.value = 1
 
 let feedback = 0.8;
@@ -228,14 +241,17 @@ if (mouseCount > 10) {
    
   }
 
+  if (mouseCount > 8) {
+
+    chorusDelayTime = 220;
+    console.log(chorus)
+    }
+
+
 
 }
 
-
-
-
-
-
+console.log(chorus)
 
     
 function windowResized() {
