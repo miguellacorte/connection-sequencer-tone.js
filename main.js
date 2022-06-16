@@ -45,6 +45,16 @@ pingPong.connect(reverb)
 
 function mousePressed() {
 
+  //circle
+  loop();
+  
+  strokeWeight(0);
+  fill(0);
+  
+  circle(mouseX, mouseY, 29);
+
+  noLoop();
+
   let notes = [];
 
 
@@ -179,26 +189,23 @@ const seq = new Tone.Sequence((time, note) => {
   
 },notes, "4n").start();
 
-
-
-
-
 Tone.Transport.start();
-
-
-
-
-
-
 
 
 }
 
 
 
+
+
+
 function draw() {
 
-
+//line
+strokeWeight(4);
+fill(230, 11, 07);
+line(pmouseX - 3, pmouseY + 3, mouseX, mouseY);
+ 
 
   
   
