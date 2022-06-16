@@ -14,6 +14,8 @@ document.querySelector('button')?.addEventListener('click', async () => {
 })
 
 
+let mouseCount = 0;
+
 
 
 
@@ -24,14 +26,17 @@ let synth = new Tone.Synth({ oscillator: { type: "square8" } }).toDestination();
 //  if there are more than 10 clicks > make reverb higher (select parameter)
 // start with high ping pong and slowly reduce
 
+let revWet = 0.3
+
  let reverb = new Tone.Reverb([1]).toDestination();
- reverb.wet.rampTo(1, '8n');
+ reverb.wet.rampTo(revWet, 3);
 
  let chorus = new Tone.Chorus(20, 220, 1).toDestination();
 //  chorus.wet.value = 1
 
 let feedback = 0.8;
  let pingPong = new Tone.PingPongDelay("16n", feedback).toDestination();
+
 
  
 
@@ -191,6 +196,8 @@ const seq = new Tone.Sequence((time, note) => {
 
 Tone.Transport.start();
 
+console.log(notes)
+
 
 }
 
@@ -201,75 +208,27 @@ Tone.Transport.start();
 
 function draw() {
 
+  if (mouseIsPressed === true) {
+    mouseCount += 1
+    console.log(mouseCount)
+  }
+
+
 //line
+
+if (mouseCount > 1) {
 strokeWeight(4);
 fill(230, 11, 07);
-line(pmouseX - 3, pmouseY + 3, mouseX, mouseY);
- 
+line(pmouseX - 3, pmouseY + 3, mouseX, mouseY);   
+}
 
-  
-  
-  
-  
-  
-      
-// X1 Y0
-    //   if ( (mouseX <= width/4 ) && (mouseY <= height/4 ) && (mouseX > 1) && (mouseY > 1) && (mouseIsPressed === true) ) {
-    //     fill(35,0,0);
-    //     rect(width/4,0,width/4,height/4); 
+if (mouseCount > 10) {
 
-    // }
-      
-      
-// //   X2 YO
-//       if ( ((mouseX > width/4) && (mouseX < width/4* 2)) && (mouseY < height/4 ) ) {
-//         console.log(height/2)
-//         
-          
-//         }
-      
-// //   X3 Y0
-//       if ( ((mouseX > width/4 * 2) && (mouseX < width/4* 3)) && (mouseY < height/4 ) ) {
-//         console.log(height/2)
-//         fill(35,0,0);
-//         rect(width/4 * 2,0,width/4,height/4); 
-          
-//         }
-      
-// //   X4 Y0
-//       if ( ((mouseX > width/4 * 3) && (mouseX < width/4* 4)) && (mouseY < height/4 ) ) {
-//         console.log(height/2)
-//         fill(35,0,0);
-//         rect(width/4 * 3,0,width/4,height/4); 
-        
-//         }
-      
-//   X1 Y1
-    //   if ( (mouseX <= width/4 ) && (mouseY <= height/2 ) && (mouseY > height/4 ) && (mouseX > 1) && (mouseY > 1) && (mouseIsPressed === true) ) {
-    //     fill(100,89,89);
-    //     rect(width/4,0,width/4,height/4); 
+  revWet += 0.7
+   
+  }
 
-    // }
-        
-//         }
-      
-// //   X4 Y0
-//        if ( ((mouseX > width/4 * 5) && (mouseX < width/4* 4)) && (mouseY < height/4 ) ) {
-//         console.log(height/2)
-//         fill(35,0,0);
-//         rect(width/4 * 5,0,width/4,height/4); 
-        
-//         }
-      
-// //   X7 Y0
-//        if ( ((mouseX > width/4 * 5) && (mouseX < width/4* 7)) && (mouseY < height/4 ) ) {
-//         console.log(height/2)
-//         fill(35,0,0);
-//         rect(width/4 * 5,0,width/4,height/4); 
-        
-//         }
-      
-    
+
 }
 
 
